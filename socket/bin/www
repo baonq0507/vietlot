@@ -1,0 +1,347 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('socket:server');
+var http = require('http');
+var cron = require('node-cron');
+//socket
+var socket = require('socket.io');
+var connection = require('../database/connect');
+const path = require('path');
+const fs = require('fs');
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+var io = socket(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+
+const getGame = async (id) => {
+  const [rows] = await connection.query('SELECT * FROM game_kenno WHERE id = ?', [id]);
+  if (rows.length > 0) {
+    return rows[0];
+  } else {
+    return null;
+  }
+}
+
+//get all game
+const getAllGameRunning = async () => {
+  const [rows] = await connection.query('SELECT * FROM game_kenno WHERE start_time <= NOW() AND end_time >= NOW()');
+  return rows;
+}
+
+//get all game done
+const getAllGameCompleted = async () => {
+  const [rows] = await connection.query('SELECT * FROM game_kenno WHERE end_time < NOW()');
+  return rows;
+}
+
+
+
+io.on('connection', (socket) => {
+  console.log('a user connected', socket.id);
+  socket.on('disconnect', () => {
+    console.log('user disconnected', socket.id);
+  });
+});
+
+
+cron.schedule('*/1 * * * * *', async () => {
+  const gameRunning = await getAllGameRunning();
+  gameRunning.forEach(async (item) => {
+    //if status not_started, update status running
+    if (item.status == 'not_started') {
+      await connection.query('UPDATE game_kenno SET status = ? WHERE id = ?', ['running', item.id]);
+    }
+  });
+  const gameCompleted = await getAllGameCompleted();
+  gameCompleted.forEach(async (item) => {
+    //if status running, update status completed
+    if (item.status == 'running') {
+      await connection.query('UPDATE game_kenno SET status = ? WHERE id = ?', ['completed', item.id]);
+      await rewardGame(item);
+    }
+  });
+
+  for (let i = 0; i < gameRunning.length; i++) {
+    io.emit(`onGame-${gameRunning[i].type}`, gameRunning[i]);
+  }
+
+});
+
+function hasDuplicate(arr) {
+  const countMap = new Map();
+  for (const num of arr) {
+    if (countMap.has(num)) {
+      return true; // Nếu có số trùng nhau, trả về true ngay
+    }
+    countMap.set(num, 1);
+  }
+  return false;
+}
+
+function hasDuplicate2(arr) {
+  const countMap = new Map();
+  for (const num of arr) {
+    countMap.set(num, (countMap.get(num) || 0) + 1);
+    if (countMap.get(num) === 3) {
+      return true; // Nếu có 3 số trùng nhau, trả về true
+    }
+  }
+  return false;
+}
+
+function hasDuplicate3(arr, number) {
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === number) {
+      count++;
+    }
+  }
+  return count === 2; // Changed to exactly 2 matches instead of >= 2
+}
+
+
+
+
+const rewardGame = async (game) => {
+  const [userGame] = await connection.query('SELECT * FROM user_games WHERE game_id = ?', [game.id]);
+  userGame.forEach(async (item) => {
+    console.log('item', item);
+    const [user] = await connection.query('SELECT * FROM users WHERE id = ?', [item.user_id]);
+    const resultGame = game.result;
+    const choose = item.choose;
+    let balance = user[0].balance;
+    let totalMoney = 0;
+
+    const moneyEachItem = item.money;
+    if (game.type.includes('kenno')) {
+      const [setting] = await connection.query('SELECT * FROM setting_kennos WHERE type = ?', [game.type]);
+
+      for (let i = 0; i < choose.length; i++) {
+        const [chooseType, chooseItem] = choose[i].split('_');
+        const biIndex = {
+          'total': 0,
+          'bi1': 1,
+          'bi2': 2,
+          'bi3': 3,
+          'bi4': 4,
+          'bi5': 5
+        }[chooseType];
+
+        const rewardWin = setting[0].reward_win;
+
+        if (biIndex !== undefined) {
+          const conditions = {
+            't': resultGame[biIndex] >= 11,
+            'x': resultGame[biIndex] < 11,
+            'l': resultGame[biIndex] % 2 !== 0,
+            'c': resultGame[biIndex] % 2 === 0
+          };
+          if (conditions[chooseItem]) {
+            totalMoney += moneyEachItem * rewardWin;
+          }
+        }
+        balance += totalMoney;
+      }
+    } else if (game.type.includes('xucxac')) {
+      const [setting] = await connection.query('SELECT * FROM setting_xxes WHERE type = ?', [game.type]);
+      for (let i = 0; i < choose.length; i++) {
+        const [chooseType, chooseItem] = choose[i].split('_');
+        const xxIndex = {
+          'cltx': 0,
+          '2st': 1,
+          '3st': 2,
+          '4st': 3,
+        }[chooseType];
+        if (xxIndex !== undefined) {
+          // CLTX (Chẵn lẻ tài xỉu)
+          if (['t', 'x', 'l', 'c'].includes(chooseItem)) {
+            const conditions = {
+              't': resultGame[xxIndex] >= 11,
+              'x': resultGame[xxIndex] < 11,
+              'l': resultGame[xxIndex] % 2 !== 0,
+              'c': resultGame[xxIndex] % 2 === 0
+            };
+            if (conditions[chooseItem]) {
+              totalMoney += moneyEachItem * setting[0].reward_win;
+            }
+          }
+
+          // 2 số trùng
+          if (xxIndex === 1) {
+            if (chooseItem === 'every' && hasDuplicate(resultGame.slice(1))) {
+              totalMoney += moneyEachItem * setting[0].reward_win_2_every;
+            }
+            // Kiểm tra các cặp số cụ thể (11-66)
+            const num = parseInt(chooseItem);
+            if (!isNaN(num) && num >= 1 && num <= 6) {
+              if (hasDuplicate3(resultGame.slice(1), num)) {
+                totalMoney += moneyEachItem * setting[0].reward_win_2;
+              }
+            }
+          }
+
+          // 3 số trùng
+          if (xxIndex === 2) {
+            if (chooseItem === 'every' && hasDuplicate2(resultGame.slice(1))) {
+              totalMoney += moneyEachItem * setting[0].reward_win_3_every;
+            }
+            // Kiểm tra bộ ba số cụ thể (111-666)
+            const num = parseInt(chooseItem);
+            if (!isNaN(num) && num >= 111 && num <= 666 && num % 111 === 0) {
+              if (hasDuplicate3(resultGame.slice(1), num / 111)) {
+                totalMoney += moneyEachItem * setting[0].reward_win_3;
+              }
+            }
+          }
+
+        }
+        balance += totalMoney;
+      }
+
+    } else if (game.type.includes('xoso')) {
+      const [setting] = await connection.query('SELECT * FROM setting_xosos WHERE type = ?', [game.type]);
+      for (let i = 0; i < choose.length; i++) {
+        const [chooseType, chooseItem] = choose[i].split('_');
+        if (chooseType !== undefined && chooseItem !== undefined) {
+          // Đặc biệt
+          if (chooseType === 'de') {
+            const lastTwoDigits = resultGame[0][0].toString().slice(-2);
+            console.log('lastTwoDigits', lastTwoDigits);
+            console.log('chooseItem', chooseItem.slice(-2));
+            if (lastTwoDigits == chooseItem.slice(-2)) {
+              console.log('totalMoney', moneyEachItem * setting[0].db);
+              totalMoney += moneyEachItem * setting[0].db;
+            }
+          } 
+          // Lô thường
+          else if (chooseType === 'lothuong') {
+            const hasMatch = resultGame.some(row => 
+              row.some(num => num.toString().slice(-2) === chooseItem.slice(-2))
+            );
+            if (hasMatch) {
+              totalMoney += moneyEachItem * setting[0].lo_thuong;
+            }
+          }
+          // Lô xiên 2-4
+          else if (['loxien2', 'loxien3', 'loxien4'].includes(chooseType)) {
+            const xienType = parseInt(chooseType.slice(-1));
+            const numbers = chooseItem;
+            const matches = numbers.filter(num => {
+              const matchCount = resultGame.reduce((count, row) => {
+                return count + row.filter(n => n.toString().slice(-2) === num).length;
+              }, 0);
+              return matchCount >= xienType;
+            }).length;
+
+            if (matches === xienType) {
+              totalMoney += moneyEachItem * setting[0][`lo_xien_${xienType}`];
+            }
+          }
+        }
+        balance += totalMoney;
+      }
+    }
+    await connection.query('UPDATE users SET balance = ? WHERE id = ?', [balance, user[0].id]);
+    await connection.query('UPDATE user_games SET status = ? , result = ? WHERE id = ?', ['success', balance > user[0].balance ? 'win' : 'lose', item.id]);
+    console.log('Trả thưởng cho', user[0].username, balance);
+    if (balance > user[0].balance) {
+      io.emit(`reward-win-${game.type}-${user[0].id}`, {
+        gameId: game.id,
+        balance: balance
+      });
+    } else {
+      io.emit(`reward-lose-${game.type}-${user[0].id}`, {
+        gameId: game.id,
+        balance: balance
+      });
+    }
+  });
+}
+// rewardGame();
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
