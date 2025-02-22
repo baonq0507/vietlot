@@ -542,20 +542,20 @@
                     <div class="bet_state">Bi thứ 1</div>
                     <div class="state_choose">
                         <div class="state_rowindex">
-                            <i class="state" data-bet="bi1_t">T</i>
+                            <i class="state" data-bet="bi1_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex">
-                            <i class="state" data-bet="bi1_x">X</i>
+                            <i class="state" data-bet="bi1_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi1_l">L</i>
+                            <i class="state" data-bet="bi1_l">Lẻ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi1_c">C</i>
+                            <i class="state" data-bet="bi1_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
@@ -565,21 +565,21 @@
                     <div class="bet_state">Bi thứ 2</div>
                     <div class="state_choose">
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi2_t">T</i>
+                            <i class="state" data-bet="bi2_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi2_x">X</i>
-                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
-                        </div>
-
-                        <div class="state_rowindex ">
-                            <i class="state" data-bet="bi2_l">L</i>
+                            <i class="state" data-bet="bi2_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi2_c">C</i>
+                            <i class="state" data-bet="bi2_l">Lẻ</i>
+                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
+                        </div>
+
+                        <div class="state_rowindex ">
+                            <i class="state" data-bet="bi2_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
@@ -589,21 +589,21 @@
                     <div class="bet_state">Bi thứ 3</div>
                     <div class="state_choose">
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi3_t">T</i>
+                            <i class="state" data-bet="bi3_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi3_x">X</i>
-                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
-                        </div>
-
-                        <div class="state_rowindex ">
-                            <i class="state" data-bet="bi3_l">L</i>
+                            <i class="state" data-bet="bi3_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi3_c">C</i>
+                            <i class="state" data-bet="bi3_l">Lẻ</i>
+                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
+                        </div>
+
+                        <div class="state_rowindex ">
+                            <i class="state" data-bet="bi3_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
@@ -613,21 +613,21 @@
                     <div class="bet_state">Bi thứ 4</div>
                     <div class="state_choose">
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi4_t">T</i>
+                            <i class="state" data-bet="bi4_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi4_x">X</i>
-                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
-                        </div>
-
-                        <div class="state_rowindex ">
-                            <i class="state" data-bet="bi4_l">L</i>
+                            <i class="state" data-bet="bi4_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi4_c">C</i>
+                            <i class="state" data-bet="bi4_l">Lẻ</i>
+                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
+                        </div>
+
+                        <div class="state_rowindex ">
+                            <i class="state" data-bet="bi4_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
@@ -637,20 +637,20 @@
                     <div class="bet_state">Bi thứ 5</div>
                     <div class="state_choose">
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi5_t">T</i>
+                            <i class="state" data-bet="bi5_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi5_x">X</i>
+                            <i class="state" data-bet="bi5_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi5_l">L</i>
+                            <i class="state" data-bet="bi5_l">Lẻ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi5_c">C</i>
+                            <i class="state" data-bet="bi5_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
