@@ -365,4 +365,28 @@ class HomeController extends Controller
         $settingXoso = SettingXoso::where('type', 'xoso3p')->first();
         return view('xoso3p', compact('lastGame', 'historyGame', 'myHistory', 'settingXoso'));
     }
+
+    public function xoso5p()
+    {
+        $lastGame = GameKenno::where('type', 'xoso5p')
+        ->where('status', 'completed')
+        ->orderBy('id', 'desc')->first();
+
+        $historyGame = GameKenno::orderBy('id', 'desc')
+        ->where('type', 'xoso5p')
+        ->where('status', 'completed')
+        ->limit(10)
+        ->get();
+
+        $myHistory = UserGame::where('user_id', Auth::user()->id)
+        ->orderBy('id', 'desc')
+        ->whereHas('game', function($query) {
+            $query->where('type', 'xoso5p');
+        })
+        ->limit(10)
+        ->get();
+
+        $settingXoso = SettingXoso::where('type', 'xoso5p')->first();
+        return view('xoso5p', compact('lastGame', 'historyGame', 'myHistory', 'settingXoso'));
+    }
 }

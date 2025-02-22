@@ -14,12 +14,12 @@
                 <span id="balance-container">
                     Số dư:
                     <span id="balance" style="display: none;">@if(auth()->user()->balance > 1000000000)<span
-                    style="font-size: 12px;">{{ number_format(auth()->user()->balance, 2, ',', '.') }}$</span>@else{{ number_format(auth()->user()->balance, 2, ',', '.') }}$@endif</span>
+                            style="font-size: 12px;">{{ number_format(auth()->user()->balance, 2, ',', '.') }}$</span>@else{{ number_format(auth()->user()->balance, 2, ',', '.') }}$@endif</span>
                     <span id="balance-hidden">********</span>
                     <i class="bi bi-eye-slash" id="toggle-balance" style="cursor: pointer; margin-left: 5px;"></i>
                 </span>
                 <script>
-                    document.getElementById('toggle-balance').addEventListener('click', function () {
+                    document.getElementById('toggle-balance').addEventListener('click', function() {
                         const balance = document.getElementById('balance');
                         const balanceHidden = document.getElementById('balance-hidden');
                         const icon = this;
@@ -117,7 +117,7 @@
                     </div>
                 </a>
             </div>
-            <div class="box-game" >
+            <div class="box-game">
                 <a href="{{ route('xucxac5') }}">
                     <img src="{{ asset('assets/images/xx5p.png') }}" style="margin: 0px 5px 0px 0px;">
                     <h3>ĐỔ XÚC SẮC 5P</h3>
@@ -125,6 +125,27 @@
 
                         <div>Dự đoán</div>
                         <div>Dự đoán Xúc sắc để giành chiến thắng</div>
+                    </div>
+                </a>
+            </div>
+            <div class="box-game">
+                <a href="{{ route('xoso3p') }}">
+                    <img src="{{ asset('assets/images/n3p.png') }}" style="margin: 8px 5px 0px 0px;">
+                    <h3>XỔ SỐ NHANH 3P</h3>
+                    <div class="box-game-text">
+                        <div>Dự đoán</div>
+                        <div>Dự đoán xổ số để giành chiến thắng</div>
+                    </div>
+                </a>
+            </div>
+            <div class="box-game" style="margin-bottom: 100px;">
+                <a href="{{ route('xoso5p') }}">
+                    <img src="{{ asset('assets/images/n5p.png') }}" style="margin: 0px 5px 0px 0px;">
+                    <h3>XỔ SỐ NHANH 5P</h3>
+                    <div class="box-game-text">
+
+                        <div>Dự đoán</div>
+                        <div>Dự đoán xổ số để giành chiến thắng</div>
                     </div>
                 </a>
             </div>
@@ -153,27 +174,7 @@
                     </div> --}}
                 </a>
             </div>
-            <div class="box-game">
-                <a href="{{ route('xoso3p') }}">
-                    <img src="{{ asset('assets/images/n3p.png') }}" style="margin: 8px 5px 0px 0px;">
-                    <h3>XỔ SỐ NHANH 3P</h3>
-                    <div class="box-game-text">
-                        <div>Dự đoán</div>
-                        <div>Dự đoán xổ số để giành chiến thắng</div>
-                    </div>
-                </a>
-            </div>
-            <div class="box-game" style="margin-bottom: 100px;">
-                <a href="">
-                    <img src="{{ asset('assets/images/n5p.png') }}" style="margin: 0px 5px 0px 0px;">
-                    <h3>XỔ SỐ NHANH 5P</h3>
-                    <div class="box-game-text">
 
-                        <div>Dự đoán</div>
-                        <div>Dự đoán xổ số để giành chiến thắng</div>
-                    </div>
-                </a>
-            </div>
         </div>
     </div>
 

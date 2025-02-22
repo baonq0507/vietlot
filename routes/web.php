@@ -48,4 +48,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/withdraw', [HomeController::class, 'withdrawPost'])->name('withdrawPost');
     //xoso3p
     Route::get('/xoso3p', [HomeController::class, 'xoso3p'])->name('xoso3p');
+    //xoso5p
+    Route::get('/xoso5p', [HomeController::class, 'xoso5p'])->name('xoso5p');
 });
