@@ -138,7 +138,7 @@
                     </div>
                 </a>
             </div>
-            <div class="box-game" style="margin-bottom: 100px;">
+            <div class="box-game" >
                 <a href="{{ route('xoso5p') }}">
                     <img src="{{ asset('assets/images/n5p.png') }}" style="margin: 0px 5px 0px 0px;">
                     <h3>XỔ SỐ NHANH 5P</h3>
@@ -164,7 +164,7 @@
                     </div> --}}
                 </a>
             </div>
-            <div class="box-game op xsmn">
+            <div class="box-game op xsmn" style="margin-bottom: 100px;">
                 <a href="">
                     {{-- <img src="{{ asset('assets/images/mn.png') }}" style="margin-left: -15px;">
                     <h3>XỔ SỐ TRUYỀN THỐNG</h3>
