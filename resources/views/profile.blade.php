@@ -125,7 +125,7 @@
             <div class="avatar text-center">
                 <img src="{{ asset('assets/images/avt.jpg') }}" alt="avatar" class="rounded-circle" width="100px" height="100px">
                 <p class="mt-1">{{ auth()->user()->username }}</p>
-                <p class="mt-1"><h4>{{ number_format(auth()->user()->balance, 0, ',', '.') }}Đ</h4></p>
+                <p class="mt-1"><h4>{{ number_format(auth()->user()->balance, 0, ',', '.') }} $</h4></p>
             </div>
 
             <div class="row justify-content-around w-75 mx-auto" id="action">

@@ -520,20 +520,20 @@
                     <div class="bet_state">Tổng</div>
                     <div class="state_choose">
                         <div class="state_rowindex">
-                            <i class="state" data-bet="total_t">T</i>
+                            <i class="state" data-bet="total_t">Tổng tài</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="total_x">X</i>
+                            <i class="state" data-bet="total_x">Tổng xỉu</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="total_l">L</i>
+                            <i class="state" data-bet="total_l">Tổng lẻ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="total_c">C</i>
+                            <i class="state" data-bet="total_c">Tổng chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
