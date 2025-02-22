@@ -86,45 +86,100 @@ class UserGameResource extends Resource
                     ->formatStateUsing(function ($state) {
                         return match ($state) {
                             'kenno1p' => 'Kenno 1P',
-                            'kenno2p' => 'Kenno 2P',
                             'kenno3p' => 'Kenno 3P',
-                            'kenno4p' => 'Kenno 4P',
                             'kenno5p' => 'Kenno 5P',
+                            'xoso3p' => 'Xổ số 3P',
+                            'xoso5p' => 'Xổ số 5P',
+                            'xucxac3p' => 'Xúc xắc 3P',
+                            'xucxac5p' => 'Xúc xắc 5P',
                         };
                     })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('choose')
                     ->label('Người chơi đặt')
-                    ->formatStateUsing(function ($state) {
-                        $results = [];
-                        $choices = explode(',', $state);
-
-                        foreach ($choices as $choice) {
-                            if (str_contains($choice, 'total')) {
-                                $type = substr($choice, -1);
-                                $displayType = match ($type) {
-                                    't' => 'Tài',
-                                    'x' => 'Xỉu',
-                                    'c' => 'Chẵn',
-                                    'l' => 'Lẻ',
-                                    default => ''
-                                };
-                                $results[] = "Tổng " . $displayType;
-                            } elseif (str_contains($choice, 'bi')) {
-                                $bi = substr($choice, 3, 1); // Get single digit
-                                $type = substr($choice, -1);
-                                $displayType = match ($type) {
-                                    'l' => 'Lẻ',
-                                    'c' => 'Chẵn',
-                                    't' => 'Tài',
-                                    'x' => 'Xỉu',
-                                    default => ''
-                                };
-                                $results[] = "Bi " . $bi . " " . $displayType;
+                    ->formatStateUsing(function ($state, $record) {
+                        if (str_contains($record->game->type, 'kenno')) {
+                            $results = [];
+                            $choices = explode(',', $state);
+    
+                            foreach ($choices as $choice) {
+                                if (str_contains($choice, 'total')) {
+                                    $type = substr($choice, -1);
+                                    $displayType = match ($type) {
+                                        't' => 'Tài',
+                                        'x' => 'Xỉu',
+                                        'c' => 'Chẵn',
+                                        'l' => 'Lẻ',
+                                        default => ''
+                                    };
+                                    $results[] = "Tổng " . $displayType;
+                                } elseif (str_contains($choice, 'bi')) {
+                                    $bi = substr($choice, 3, 1); // Get single digit
+                                    $type = substr($choice, -1);
+                                    $displayType = match ($type) {
+                                        'l' => 'Lẻ',
+                                        'c' => 'Chẵn',
+                                        't' => 'Tài',
+                                        'x' => 'Xỉu',
+                                        default => ''
+                                    };
+                                    $results[] = "Bi " . $bi . " " . $displayType;
+                                }
                             }
+    
+                            return implode(', ', $results);
+                        }elseif (str_contains($record->game->type, 'xucxac')) {
+                            $results = [];
+                            $choices = explode(',', $state);
+    
+                            foreach ($choices as $choice) {
+                                if (str_contains($choice, 'cltx')) {
+                                    $type = substr($choice, -1);
+                                    $displayType = match ($type) {
+                                        't' => 'Tài',
+                                        'x' => 'Xỉu',
+                                        'c' => 'Chẵn',
+                                        'l' => 'Lẻ',
+                                        default => ''
+                                    };
+                                    $results[] = "Cltx " . $displayType;
+                                } elseif (str_contains($choice, '2st')) {
+                                    if (substr($choice, -5) === 'every') {
+                                        $results[] = "2 số trùng bất kì";
+                                    } else {
+                                        $results[] = "2 số trùng " . substr($choice, -2);
+                                    }
+                                } elseif (str_contains($choice, '3st')) {
+                                    if (substr($choice, -5) === 'every') {
+                                        $results[] = "3 số trùng bất kì";
+                                    } else {
+                                        $results[] = "3 số trùng " . substr($choice, -3);
+                                    }
+                                }
+                            }
+                            return implode(', ', $results);
+                        } elseif (str_contains($record->game->type, 'xoso')) {
+                            $results = [];
+                            $choices = explode(',', $state);
+                            foreach ($choices as $choice) {
+                                if(str_contains($choice, 'de')) {
+                                    $results[] = "Đề " . substr($choice, -3);
+                                } elseif(str_contains($choice, 'lothuong')) {
+                                    $results[] = "Lô thường " . substr($choice, -3);
+                                } elseif(str_contains($choice, 'loxien2')) {
+                                    $results[] = "Lô xiên 2 " . substr($choice, -3);
+                                } elseif(str_contains($choice, 'loxien3')) {
+                                    $results[] = "Lô xiên 3 " . substr($choice, -3);
+                                } elseif(str_contains($choice, 'loxien4')) {
+                                    $results[] = "Lô xiên 4 " . substr($choice, -3);
+                                } elseif(str_contains($choice, 'db')) {
+                                    $results[] = "Đặc biệt " . substr($choice, -3);
+                                } elseif(str_contains($choice, 'bacang')) {
+                                    $results[] = "Ba càng " . substr($choice, -3);
+                                }
+                            }
+                            return implode(', ', $results);
                         }
-
-                        return implode(', ', $results);
                     }),
 
                 Tables\Columns\TextColumn::make('money')
@@ -166,6 +221,10 @@ class UserGameResource extends Resource
                         'kenno1p' => 'Kenno 1P',
                         'kenno3p' => 'Kenno 3P',
                         'kenno5p' => 'Kenno 5P',
+                        'xoso3p' => 'Xổ số 3P',
+                        'xoso5p' => 'Xổ số 5P',
+                        'xucxac3p' => 'Xúc xắc 3P',
+                        'xucxac5p' => 'Xúc xắc 5P',
                     ])
                     ->label('Game'),
                 Tables\Filters\SelectFilter::make('result')
@@ -196,7 +255,7 @@ class UserGameResource extends Resource
                                     ])
                                     ->required(),
                                 Forms\Components\TextInput::make('total_win')
-                                    ->label('Tổng tiền thắng')
+                                    ->label('Tiền thắng')
                                     ->numeric()
                                     ->required(),
                             ])

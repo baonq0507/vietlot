@@ -298,24 +298,24 @@ class HomeController extends Controller
 
     public function xucxac3()
     {
-        $lastGame = GameKenno::where('type', 'xucxac3')
+        $lastGame = GameKenno::where('type', 'xucxac3p')
         ->where('status', 'completed')
         ->orderBy('id', 'desc')->first();
 
         $historyGame = GameKenno::orderBy('id', 'desc')
-        ->where('type', 'xucxac3')
+        ->where('type', 'xucxac3p')
         ->where('status', 'completed')
         ->limit(10)
         ->get();
         $myHistory = UserGame::where('user_id', Auth::user()->id)
         ->orderBy('id', 'desc')
         ->whereHas('game', function($query) {
-            $query->where('type', 'xucxac3');
+            $query->where('type', 'xucxac3p');
         })
         ->limit(10)
         ->get();
 
-        $settingXx = SettingXx::where('type', 'xucxac3')->first();
+        $settingXx = SettingXx::where('type', 'xucxac3p')->first();
         return view('xucxac3', compact('lastGame', 'historyGame', 'myHistory', 'settingXx'));
     }
 

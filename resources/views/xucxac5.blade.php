@@ -810,14 +810,15 @@
             let codeGame = '';
             socket.on('connect', () => {
                 let lastCode = '';
-                socket.on(`onGame-xucxac5`, (data) => {
+                socket.on(`onGame-xucxac5p`, (data) => {
                     // Only update if code has changed
                     if (data.code !== lastCode) {
                         $('#code-game').text(data.code);
                         codeGame = data.code;
                         gameId = data.id;
                         lastCode = data.code;
-                        reloadPage(['#my_history', '#history_game']);
+                        reloadPage('#my_history');
+                        reloadPage('#history_game');
                     }
 
                     const endTime = new Date(data.end_time);
@@ -905,7 +906,8 @@
                         $('.chooseItem').removeClass('chooseItem');
                         $('.popup-bet').addClass('d-none');
                         $('#balance').text(response.balance);
-                        reloadPage(['#my_history', '#history_game']);
+                        reloadPage('#my_history');
+                        reloadPage('#history_game');
                     },
                     error: function (response) {
                         Toastify({

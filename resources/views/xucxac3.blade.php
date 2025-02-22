@@ -811,7 +811,7 @@
             let codeGame = '';
             socket.on('connect', () => {
                 let lastCode = '';
-                socket.on(`onGame-xucxac3`, (data) => {
+                socket.on(`onGame-xucxac3p`, (data) => {
                     // Only update if code has changed
                     if (data.code !== lastCode) {
                         $('#code-game').text(data.code);

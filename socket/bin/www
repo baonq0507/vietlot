@@ -261,17 +261,19 @@ const rewardGame = async (game) => {
       }
     }
     await connection.query('UPDATE users SET balance = ? WHERE id = ?', [balance, user[0].id]);
-    await connection.query('UPDATE user_games SET status = ? , result = ? WHERE id = ?', ['success', balance > user[0].balance ? 'win' : 'lose', item.id]);
+    await connection.query('UPDATE user_games SET status = ? , result = ? , total_win = ? WHERE id = ?', ['success', balance > user[0].balance ? 'win' : 'lose', totalMoney, item.id]);
     console.log('Trả thưởng cho', user[0].username, balance);
     if (balance > user[0].balance) {
       io.emit(`reward-win-${game.type}-${user[0].id}`, {
         gameId: game.id,
-        balance: balance
+        balance: balance,
+        totalMoney: totalMoney
       });
     } else {
       io.emit(`reward-lose-${game.type}-${user[0].id}`, {
         gameId: game.id,
-        balance: balance
+        balance: balance,
+        totalMoney: totalMoney
       });
     }
   });

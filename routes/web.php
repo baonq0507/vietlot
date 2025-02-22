@@ -9,8 +9,8 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'registerPost'])->name('registerPost');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
     //notification
     Route::get('/notification', [HomeController::class, 'notification'])->name('notification');
     //recharge

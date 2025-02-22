@@ -9,6 +9,7 @@
             <img src="{{ asset('assets/images/logo.png') }}" alt="logo" class="img-fluid" style="width: 10rem;">
         </div>
         <div class="col-6 text-end mt-2" id="header-top">
+            @if(auth()->check())
             <p class="text-white align-items-center text-end my-0">
                 <span id="balance-container">
                     Số dư:
@@ -37,6 +38,10 @@
                     });
                 </script>
             </p>
+            @else
+            <a href="{{ route('login') }}" class="btn btn-warning btn-sm" style="background: linear-gradient(124.32deg, #ffce1f 12.08%, #ccd26d 85.02%); color: #fff;">Đăng nhập</a>
+            <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Đăng ký</a>
+            @endif
         </div>
     </div>
     <div class="swiper mySwiper">
