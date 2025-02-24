@@ -421,91 +421,95 @@
             </div>
         </form>
     </div>
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-lo" role="tabpanel" aria-labelledby="pills-lo-tab">
-            <div class="text_choose_center">
-                <div class="bet_state">Chọn Số</div>
-                <div class="state_choose">
-                    @for($i = 0; $i <= 99; $i++)
-                        <div class="choose_xs" data-bet="{{ 'lothuong_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
-                    @endfor
+    <div style="margin-bottom: 100px; min-height: 60vh;">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-lo" role="tabpanel" aria-labelledby="pills-lo-tab">
+                <div class="text_choose_center">
+                    <div class="bet_state">Chọn Số</div>
+                    <div class="state_choose">
+                        @for($i = 0; $i <= 99; $i++)
+                            <div class="choose_xs" data-bet="{{ 'lothuong_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
+                        @endfor
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="tab-pane fade" id="pills-ba_cang" role="tabpanel" aria-labelledby="pills-ba_cang-tab">
-            <ul class="nav nav-pills mb-3 tab-bacang" id="pills-ba_cang-tab" role="tablist">
-                @foreach ([0, 100, 200, 300, 400, 500, 600, 700, 800, 900] as $start)
-                <li class="nav-item" role="presentation" style="padding: 5px 2px; border-radius: 7px;" data-bs-toggle="pill" data-bs-target="#pills-{{ $start }}" aria-controls="pills-{{ $start }}" aria-selected="{{ $start == 0 ? 'true' : 'false' }}">
-                    <div class="line-bacang" type="button" role="tab">
-                        {{ $start < 10 ? '00'.$start : ($start < 100 ? '0'.$start : $start) }}
-                        <br>
-                        <span class="line-bacang">-----</span>
-                        <br>
-                        {{ $start + 99 < 10 ? '00'.($start + 99) : ($start + 99 < 100 ? '0'.($start + 99) : ($start + 99)) }}
-                    </div>
-                </li>
-                @endforeach
-            </ul>
-            <div class="tab-content" id="pills-ba_cang-tab">
-                @foreach ([0, 100, 200, 300, 400, 500, 600, 700, 800, 900] as $start)
-                <div class="tab-pane fade {{ $start == 0 ? 'show active' : '' }}" id="pills-{{ $start }}" role="tabpanel" aria-labelledby="pills-{{ $start }}-tab">
-                    <div class="text_choose_center">
-                        <div class="bet_state">Chọn Số</div>
-                        <div class="state_choose">
-                            @for ($i = $start; $i <= $start + 99; $i++)
-                                <div id="{{ $i }}" class="choose_xs" data-bet="{{ 'bacang_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
-                            @endfor
+            <div class="tab-pane fade" id="pills-ba_cang" role="tabpanel" aria-labelledby="pills-ba_cang-tab">
+                <ul class="nav nav-pills mb-3 tab-bacang" id="pills-ba_cang-tab" role="tablist">
+                    @foreach ([0, 100, 200, 300, 400, 500, 600, 700, 800, 900] as $start)
+                    <li class="nav-item" role="presentation" style="padding: 5px 2px; border-radius: 7px;" data-bs-toggle="pill" data-bs-target="#pills-{{ $start }}" aria-controls="pills-{{ $start }}" aria-selected="{{ $start == 0 ? 'true' : 'false' }}">
+                        <div class="line-bacang" type="button" role="tab">
+                            {{ $start < 10 ? '00'.$start : ($start < 100 ? '0'.$start : $start) }}
+                            <br>
+                            <span class="line-bacang">-----</span>
+                            <br>
+                            {{ $start + 99 < 10 ? '00'.($start + 99) : ($start + 99 < 100 ? '0'.($start + 99) : ($start + 99)) }}
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
+                <div class="tab-content" id="pills-ba_cang-tab">
+                    @foreach ([0, 100, 200, 300, 400, 500, 600, 700, 800, 900] as $start)
+                    <div class="tab-pane fade {{ $start == 0 ? 'show active' : '' }}" id="pills-{{ $start }}" role="tabpanel" aria-labelledby="pills-{{ $start }}-tab">
+                        <div class="text_choose_center">
+                            <div class="bet_state">Chọn Số</div>
+                            <div class="state_choose">
+                                @for ($i = $start; $i <= $start + 99; $i++)
+                                    <div id="{{ $i }}" class="choose_xs" data-bet="{{ 'bacang_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
+                                @endfor
+                            </div>
                         </div>
                     </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="tab-pane fade" id="pills-de" role="tabpanel" aria-labelledby="pills-de-tab">
-            <div class="text_choose_center">
-                <div class="bet_state">Chọn Số</div>
-                <div class="state_choose">
-                    @for($i = 0; $i <= 99; $i++)
-                        <div class="choose_xs" data-bet="{{ 'de_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
-        </div>
+            <div class="tab-pane fade" id="pills-de" role="tabpanel" aria-labelledby="pills-de-tab">
+                <div class="text_choose_center">
+                    <div class="bet_state">Chọn Số</div>
+                    <div class="state_choose">
+                        @for($i = 0; $i <= 99; $i++)
+                            <div class="choose_xs" data-bet="{{ 'de_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
+                        @endfor
+                    </div>
+                </div>
+            </div>
 
-        <div class="tab-pane fade" id="pills-lo_xien2" role="tabpanel" aria-labelledby="pills-lo_xien2-tab">
-            <div class="text_choose_center">
-                <div class="bet_state">Chọn Số</div>
-                <div class="state_choose">
-                    @for($i = 0; $i <= 99; $i++)
-                    <div class="choose_xs" data-bet="{{ 'loxien2_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
-                    @endfor
+            <div class="tab-pane fade" id="pills-lo_xien2" role="tabpanel" aria-labelledby="pills-lo_xien2-tab">
+                <div class="text_choose_center">
+                    <div class="bet_state">Chọn Số</div>
+                    <div class="state_choose">
+                        @for($i = 0; $i <= 99; $i++)
+                        <div class="choose_xs" data-bet="{{ 'loxien2_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
+                        @endfor
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="tab-pane fade" id="pills-lo_xien3" role="tabpanel" aria-labelledby="pills-lo_xien3-tab">
-            <div class="text_choose_center">
-                <div class="bet_state">Chọn Số</div>
-                <div class="state_choose">
-                    @for($i = 0; $i <= 99; $i++)
-                        <div class="choose_xs" data-bet="{{ 'loxien3_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
-                    @endfor
+            <div class="tab-pane fade" id="pills-lo_xien3" role="tabpanel" aria-labelledby="pills-lo_xien3-tab">
+                <div class="text_choose_center">
+                    <div class="bet_state">Chọn Số</div>
+                    <div class="state_choose">
+                        @for($i = 0; $i <= 99; $i++)
+                            <div class="choose_xs" data-bet="{{ 'loxien3_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
+                        @endfor
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="tab-pane fade" id="pills-lo_xien4" role="tabpanel" aria-labelledby="pills-lo_xien4-tab">
-            <div class="text_choose_center">
-                <div class="bet_state">Chọn Số</div>
-                <div class="state_choose">
-                    @for($i = 0; $i <= 99; $i++)
-                        <div class="choose_xs" data-bet="{{ 'loxien4_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
-                    @endfor
+            <div class="tab-pane fade" id="pills-lo_xien4" role="tabpanel" aria-labelledby="pills-lo_xien4-tab">
+                <div class="text_choose_center">
+                    <div class="bet_state">Chọn Số</div>
+                    <div class="state_choose">
+                        @for($i = 0; $i <= 99; $i++)
+                            <div class="choose_xs" data-bet="{{ 'loxien4_' . ($i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i)) }}">{{ $i < 10 ? '00'.$i : ($i < 100 ? '0'.$i : $i) }}</div>
+                        @endfor
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    @include('includes.footer')
 </div>
+
 
 
 
@@ -743,7 +747,7 @@
                     background: "linear-gradient(to right, #00b09b, #96c93d)",
                 }
             }).showToast();
-            $('#balance').text(formatMoney(data.balance));
+            reloadPage('#balance-container');
         });
         socket.on(`reward-lose-xoso3p-${userId}`, (data) => {
             Toastify({
@@ -755,7 +759,7 @@
                     background: "linear-gradient(to right, #ff6b6b, #ff0000)",
                 }
             }).showToast();
-            $('#balance').text(formatMoney(data.balance));
+            reloadPage('#balance-container');
         });
         socket.on('disconnect', () => {
             console.log('disconnected from socket');
@@ -789,8 +793,8 @@
                     }).showToast();
                     $('#form-submit-bet').find('input[name="money"]').val('');
                     $('.chooseItem').removeClass('chooseItem');
-                    $('#balance').text(response.balance);
                     reloadPage('#my_history');
+                    reloadPage('#balance-container');
                 },
                 error: function(response) {
                     Toastify({

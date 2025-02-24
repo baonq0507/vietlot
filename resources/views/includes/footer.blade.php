@@ -55,7 +55,7 @@
         </a>
     </div>
     <div class="footer-item">
-        <a href="/cskh"  style="text-decoration: none;">
+        <a href="{{ $cskh }}" target="_blank" style="text-decoration: none;">
             <div class="icon_footer"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-vubbuv"
                     focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HeadsetMicOutlinedIcon">
                     <path

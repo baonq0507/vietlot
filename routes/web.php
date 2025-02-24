@@ -50,4 +50,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/xoso3p', [HomeController::class, 'xoso3p'])->name('xoso3p');
     //xoso5p
     Route::get('/xoso5p', [HomeController::class, 'xoso5p'])->name('xoso5p');
+    //xsmienbac
+    Route::get('/xsmb', [HomeController::class, 'xsmb'])->name('xsmb');
+    //xsmientrung
+    Route::get('/xsmt', [HomeController::class, 'xsmt'])->name('xsmt');
+    //xsmiennam
+    Route::get('/xsmn', [HomeController::class, 'xsmn'])->name('xsmn');
+    Route::get('/create-game', [HomeController::class, 'createGame'])->name('createGame');
 });

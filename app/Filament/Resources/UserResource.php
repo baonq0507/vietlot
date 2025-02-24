@@ -34,6 +34,12 @@ class UserResource extends Resource
 
     protected static ?string $navigationGroup = 'Quản lý tài khoản';
 
+    //query
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->orderBy('id', 'desc');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

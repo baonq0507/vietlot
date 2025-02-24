@@ -34,7 +34,7 @@
         .box-quay {
             background: #00b977;
             border-radius: .18667rem;
-            height: 3.09333rem;
+            height: 100px;
             margin-top: .48rem;
             padding: .26667rem;
             position: relative;
@@ -107,12 +107,12 @@
             background: #e1e1ec;
             border-radius: 50%;
             color: #0006;
-            font-size: .8rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            height: 1.46667rem;
-            line-height: 1.46667rem;
+            height: 50px;
+            line-height: 50px;
             margin: 0 auto .10667rem;
-            width: 1.46667rem;
+            width: 50px;
         }
 
         .box-quay .box:after {
@@ -166,7 +166,7 @@
 
         .state {
             display: block;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
             font-style: normal;
             color: red;
@@ -201,7 +201,7 @@
             cursor: pointer;
             flex: 1 1;
             margin: .1rem;
-            padding: 10px;
+            padding: 7px;
         }
 
         .popup-bet {
@@ -520,11 +520,11 @@
                     <div class="bet_state">Tổng</div>
                     <div class="state_choose">
                         <div class="state_rowindex">
-                            <i class="state" data-bet="total_t">Tổng tài</i>
+                            <i class="state" data-bet="total_t">Tổng lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="total_x">Tổng xỉu</i>
+                            <i class="state" data-bet="total_x">Tổng nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
@@ -691,7 +691,7 @@
                                             <span class="result_item">{{ $item->result[4] }}</span>
                                             <span class="result_item">{{ $item->result[5] }}</span>
                                         </td>
-                                        <td>{{ $item->created_at->format('y/m/d H:i') }}</td>
+                                        <td>{{ $item->start_time }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -704,7 +704,7 @@
                             <div class="row border-bottom py-3">
                                 <div class="col-6">
                                     <p class="mb-0 text-muted">
-                                        <span>Kenno 1P</span>
+                                        <span>Kenno 5P</span>
                                         <span class="bage {{ $item->result == 'win' ? 'bg-success' : 'bg-danger' }} text-white p-1 rounded-pill"
                                             style="font-size: 12px;">{{ $item->result == null ? 'Chờ kết quả' : ($item->result == 'win' ? 'Thắng' : 'Thua') }}</span>
                                     </p>
@@ -805,7 +805,7 @@
                 }, speed);
                 $column.css("transform", "");
                 const totalItems = 20; // Số lượng phần tử trong mỗi cột
-                const itemHeight = 24.8; // Khoảng cách giữa các phần tử
+                const itemHeight = parseInt($column.css("height")) / totalItems - 1;
                 setTimeout(() => {
                     clearInterval(interval);
 
@@ -950,7 +950,7 @@
                         background: "linear-gradient(to right, #00b09b, #96c93d)",
                     }
                 }).showToast();
-                $('#balance').text(formatMoney(data.balance));
+                reloadPage('#balance-container');
             });
             socket.on(`reward-lose-kenno5p-${userId}`, (data) => {
                 Toastify({
@@ -962,7 +962,7 @@
                         background: "linear-gradient(to right, #ff6b6b, #ff0000)",
                     }
                 }).showToast();
-                $('#balance').text(formatMoney(data.balance));
+                reloadPage('#balance-container');
             });
             socket.on('disconnect', () => {
                 console.log('disconnected from socket');
@@ -997,8 +997,9 @@
                         $('#form-submit-bet').find('input[name="money"]').val('');
                         $('.chooseItem').removeClass('chooseItem');
                         $('.popup-bet').addClass('d-none');
-                        $('#balance').text(response.balance);
-                        reloadPage(['#my_history', '#history_game']);
+                        reloadPage('#my_history');
+                        reloadPage('#history_game');
+                        reloadPage('#balance-container');
                     },
                     error: function (response) {
                         Toastify({

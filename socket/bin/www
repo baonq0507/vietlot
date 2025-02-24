@@ -53,6 +53,12 @@ const getAllGameCompleted = async () => {
   return rows;
 }
 
+//get all game not started
+const getAllGameNotStarted = async () => {
+  const [rows] = await connection.query('SELECT * FROM game_kenno WHERE status = ?', ['not_started']);
+  return rows;
+}
+
 
 
 io.on('connection', (socket) => {
@@ -159,7 +165,6 @@ const rewardGame = async (game) => {
             totalMoney += moneyEachItem * rewardWin;
           }
         }
-        balance += totalMoney;
       }
     } else if (game.type.includes('xucxac')) {
       const [setting] = await connection.query('SELECT * FROM setting_xxes WHERE type = ?', [game.type]);
@@ -214,7 +219,6 @@ const rewardGame = async (game) => {
           }
 
         }
-        balance += totalMoney;
       }
 
     } else if (game.type.includes('xoso')) {
@@ -257,9 +261,10 @@ const rewardGame = async (game) => {
             }
           }
         }
-        balance += totalMoney;
       }
     }
+
+    balance += totalMoney;
     await connection.query('UPDATE users SET balance = ? WHERE id = ?', [balance, user[0].id]);
     await connection.query('UPDATE user_games SET status = ? , result = ? , total_win = ? WHERE id = ?', ['success', balance > user[0].balance ? 'win' : 'lose', totalMoney, item.id]);
     console.log('Trả thưởng cho', user[0].username, balance);

@@ -54,8 +54,8 @@
                     @foreach($notifications as $notification)
                     <div class="col-12 mb-3">
                         <div class="card">
-                            <div class="card-body">
-                                <img src="{{ $notification->image_url }}" alt="" class="img-fluid" data-bs-toggle="modal" data-bs-target="#notification-{{ $notification->id }}">
+                            <div class="card-body" data-bs-toggle="modal" data-bs-target="#notification-{{ $notification->id }}">
+                                <img src="{{ $notification->image_url }}" alt="{{ $notification->title }}" class="img-fluid" >
                             </div>
                             <div class="card-footer" style="background-color: transparent;">
                                 <p class="text-center mb-0">

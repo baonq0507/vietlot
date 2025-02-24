@@ -34,7 +34,7 @@
         .box-quay {
             background: #00b977;
             border-radius: .18667rem;
-            height: 3.09333rem;
+            height: 100px;
             margin-top: .48rem;
             padding: .26667rem;
             position: relative;
@@ -107,12 +107,12 @@
             background: #e1e1ec;
             border-radius: 50%;
             color: #0006;
-            font-size: .8rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            height: 1.46667rem;
-            line-height: 1.46667rem;
+            height: 50px;
+            line-height: 50px;
             margin: 0 auto .10667rem;
-            width: 1.46667rem;
+            width: 50px;
         }
 
         .box-quay .box:after {
@@ -166,7 +166,7 @@
 
         .state {
             display: block;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
             font-style: normal;
             color: red;
@@ -201,7 +201,7 @@
             cursor: pointer;
             flex: 1 1;
             margin: .1rem;
-            padding: 10px;
+            padding: 7px;
         }
 
         .popup-bet {
@@ -328,7 +328,7 @@
             <div class="col-6" id="header-top">
                 <img src="{{ asset('assets/images/logo.png') }}" alt="logo" class="img-fluid" style="width: 10rem;">
             </div>
-            <div class="col-6 text-end mt-2" id="header-top">
+            <div class="col-6 text-end mt-2" id="">
                 <p class="text-white align-items-center text-end my-0">
                     <span id="balance-container">
                         Số dư:
@@ -519,11 +519,11 @@
                     <div class="bet_state">Tổng</div>
                     <div class="state_choose">
                         <div class="state_rowindex">
-                            <i class="state" data-bet="total_t">Tồng tài</i>
+                            <i class="state" data-bet="total_t">Tổng lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="total_x">Tổng xỉu</i>
+                            <i class="state" data-bet="total_x">Tổng nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
@@ -541,20 +541,20 @@
                     <div class="bet_state">Bi thứ 1</div>
                     <div class="state_choose">
                         <div class="state_rowindex">
-                            <i class="state" data-bet="bi1_t">T</i>
+                            <i class="state" data-bet="bi1_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex">
-                            <i class="state" data-bet="bi1_x">X</i>
+                            <i class="state" data-bet="bi1_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi1_l">L</i>
+                            <i class="state" data-bet="bi1_l">Lẻ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi1_c">C</i>
+                            <i class="state" data-bet="bi1_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
@@ -564,21 +564,21 @@
                     <div class="bet_state">Bi thứ 2</div>
                     <div class="state_choose">
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi2_t">T</i>
+                            <i class="state" data-bet="bi2_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi2_x">X</i>
-                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
-                        </div>
-
-                        <div class="state_rowindex ">
-                            <i class="state" data-bet="bi2_l">L</i>
+                            <i class="state" data-bet="bi2_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi2_c">C</i>
+                            <i class="state" data-bet="bi2_l">Lẻ</i>
+                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
+                        </div>
+
+                        <div class="state_rowindex ">
+                            <i class="state" data-bet="bi2_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
@@ -588,21 +588,21 @@
                     <div class="bet_state">Bi thứ 3</div>
                     <div class="state_choose">
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi3_t">T</i>
+                            <i class="state" data-bet="bi3_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi3_x">X</i>
-                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
-                        </div>
-
-                        <div class="state_rowindex ">
-                            <i class="state" data-bet="bi3_l">L</i>
+                            <i class="state" data-bet="bi3_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi3_c">C</i>
+                            <i class="state" data-bet="bi3_l">Lẻ</i>
+                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
+                        </div>
+
+                        <div class="state_rowindex ">
+                            <i class="state" data-bet="bi3_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
@@ -612,21 +612,21 @@
                     <div class="bet_state">Bi thứ 4</div>
                     <div class="state_choose">
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi4_t">T</i>
+                            <i class="state" data-bet="bi4_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi4_x">X</i>
-                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
-                        </div>
-
-                        <div class="state_rowindex ">
-                            <i class="state" data-bet="bi4_l">L</i>
+                            <i class="state" data-bet="bi4_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi4_c">C</i>
+                            <i class="state" data-bet="bi4_l">Lẻ</i>
+                            <span class="setting_type">{{ $settingKenno->reward_win }}</span>
+                        </div>
+
+                        <div class="state_rowindex ">
+                            <i class="state" data-bet="bi4_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
@@ -636,20 +636,20 @@
                     <div class="bet_state">Bi thứ 5</div>
                     <div class="state_choose">
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi5_t">T</i>
+                            <i class="state" data-bet="bi5_t">Lớn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi5_x">X</i>
+                            <i class="state" data-bet="bi5_x">Nhỏ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
 
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi5_l">L</i>
+                            <i class="state" data-bet="bi5_l">Lẻ</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                         <div class="state_rowindex ">
-                            <i class="state" data-bet="bi5_c">C</i>
+                            <i class="state" data-bet="bi5_c">Chẵn</i>
                             <span class="setting_type">{{ $settingKenno->reward_win }}</span>
                         </div>
                     </div>
@@ -690,7 +690,7 @@
                                             <span class="result_item">{{ $item->result[4] }}</span>
                                             <span class="result_item">{{ $item->result[5] }}</span>
                                         </td>
-                                        <td>{{ $item->created_at->format('y/m/d H:i') }}</td>
+                                        <td>{{ $item->start_time }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -708,7 +708,7 @@
                                             style="font-size: 12px;">{{ $item->result == null ? 'Chờ kết quả' : ($item->result == 'win' ? 'Thắng' : 'Thua') }}</span>
                                     </p>
                                     <p class="mb-0 text-muted" style="font-size: 12px;">
-                                        <span>Phiên cược: {{ $item->game->id }}</span>
+                                        <span>Phiên cược: {{ $item->game->code }}</span>
                                     </p>
                                     <p class="mb-0 text-muted" style="font-size: 12px;">
                                         <span>Chọn 
@@ -804,7 +804,7 @@
                 }, speed);
                 $column.css("transform", "");
                 const totalItems = 20; // Số lượng phần tử trong mỗi cột
-                const itemHeight = 24.8; // Khoảng cách giữa các phần tử
+                const itemHeight = parseInt($column.css("height")) / totalItems - 1;
                 setTimeout(() => {
                     clearInterval(interval);
 
@@ -953,7 +953,7 @@
                         background: "linear-gradient(to right, #00b09b, #96c93d)",
                     }
                 }).showToast();
-                $('#balance').text(formatMoney(data.balance));
+                reloadPage('#balance-container');
             });
             socket.on(`reward-lose-kenno1p-${userId}`, (data) => {
                 Toastify({
@@ -965,7 +965,7 @@
                         background: "linear-gradient(to right, #ff6b6b, #ff0000)",
                     }
                 }).showToast();
-                $('#balance').text(formatMoney(data.balance));
+                reloadPage('#balance-container');
             });
             socket.on('disconnect', () => {
                 console.log('disconnected from socket');
@@ -1001,7 +1001,9 @@
                         $('.chooseItem').removeClass('chooseItem');
                         $('.popup-bet').addClass('d-none');
                         $('#balance').text(response.balance);
-                        reloadPage(['#my_history', '#history_game']);
+                        reloadPage('#my_history');
+                        reloadPage('#history_game');
+                        reloadPage('#balance-container');
                     },
                     error: function (response) {
                         Toastify({

@@ -7,6 +7,8 @@ use App\Models\SettingKenno;
 use App\Models\SettingXx;
 use App\Models\SettingXoso;
 use Filament\Notifications\Notification;
+use App\Models\Setting;
+
 class SettingPage extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
@@ -41,6 +43,10 @@ class SettingPage extends Page
     public $dataFormSaveSettingXosoMienTrung;
     public $dataFormSaveSettingXosoMienNam;
 
+    public $dataFormSaveSetting;
+
+    public $setting;
+
     //label
     public static function getLabel(): string
     {
@@ -61,6 +67,8 @@ class SettingPage extends Page
         $this->settingXosoMienBac = $this->getSettingXosoMienBac();
         $this->settingXosoMienTrung = $this->getSettingXosoMienTrung();
         $this->settingXosoMienNam = $this->getSettingXosoMienNam();
+
+        $this->setting = $this->getSetting();
 
         $this->dataFormSaveSettingKenno1p = [
             'reward_win' => $this->settingKenno1p->reward_win,
@@ -118,7 +126,18 @@ class SettingPage extends Page
             'lo_xien_3' => $this->settingXosoMienNam->lo_xien_3,
             'lo_xien_4' => $this->settingXosoMienNam->lo_xien_4,
         ];
+
+        $this->dataFormSaveSetting = [
+            'min_bet' => $this->setting->min_bet,
+            'max_bet' => $this->setting->max_bet,
+            'min_withdraw' => $this->setting->min_withdraw,
+            'max_withdraw' => $this->setting->max_withdraw,
+            'min_deposit' => $this->setting->min_deposit,
+            'max_deposit' => $this->setting->max_deposit,
+            'cskh' => $this->setting->cskh,
+        ];
     }
+
     //get setting
     public function getSettingKenno1p()
     {
@@ -168,6 +187,11 @@ class SettingPage extends Page
     public function getSettingXosoMienNam()
     {
         return SettingXoso::where('type', 'xsmn')->first();
+    }
+
+    public function getSetting()
+    {
+        return Setting::first();
     }
     
 
@@ -260,8 +284,15 @@ class SettingPage extends Page
             ->success()
             ->send();
     }
-    
-    
+
+    public function saveSetting()
+    {
+        $this->setting->update($this->dataFormSaveSetting);
+        Notification::make()
+            ->title('Cập nhật thành công')
+            ->success()
+            ->send();
+    }
     
     
     

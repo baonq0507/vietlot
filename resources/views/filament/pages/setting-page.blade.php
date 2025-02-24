@@ -14,7 +14,78 @@
         }
     </style>
     <x-filament::section>
+        <!-- cài đặt chung -->
         <div style="margin-bottom: 20px;" class="space-y-6">
+            <h3>Cài đặt chung</h3>
+            <form wire:submit.prevent="saveSetting" id="form_save_setting">
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="width: calc(33.33% - 14px);">
+                        <label for="min_bet" style="display: block;">Đặt cược tối thiểu</label>
+                        <input type="number"
+                            name="min_bet"
+                            wire:model="dataFormSaveSetting.min_bet"
+                            min="0"
+                            step="0.01"
+                            style="width: 100%; height: 30px; border: 1px solid #e5e7eb; border-radius: 5px; padding: 5px; color: #000;" />
+                    </div>
+                    <div style="width: calc(33.33% - 14px);">
+                        <label for="max_bet" style="display: block;">Đặt cược tối đa</label>
+                        <input type="number"
+                            name="max_bet"
+                            wire:model="dataFormSaveSetting.max_bet"
+                            min="0"
+                            step="0.01"
+                            style="width: 100%; height: 30px; border: 1px solid #e5e7eb; border-radius: 5px; padding: 5px; color: #000;" />
+                    </div>
+                    <div style="width: calc(33.33% - 14px);">
+                        <label for="min_withdraw" style="display: block;">Rút tiền tối thiểu</label>
+                        <input type="number"
+                            name="min_withdraw"
+                            wire:model="dataFormSaveSetting.min_withdraw"
+                            min="0"
+                            step="0.01"
+                            style="width: 100%; height: 30px; border: 1px solid #e5e7eb; border-radius: 5px; padding: 5px; color: #000;" />
+                    </div>
+                    <div style="width: calc(33.33% - 14px);">
+                        <label for="max_withdraw" style="display: block;">Rút tiền tối đa</label>
+                        <input type="number"
+                            name="max_withdraw"
+                            wire:model="dataFormSaveSetting.max_withdraw"
+                            min="0"
+                            step="0.01"
+                            style="width: 100%; height: 30px; border: 1px solid #e5e7eb; border-radius: 5px; padding: 5px; color: #000;" />
+                    </div>
+                    <div style="width: calc(33.33% - 14px);">
+                        <label for="min_deposit" style="display: block;">Nạp tiền tối thiểu</label>
+                        <input type="number"
+                            name="min_deposit"
+                            wire:model="dataFormSaveSetting.min_deposit"
+                            min="0"
+                            step="0.01"
+                            style="width: 100%; height: 30px; border: 1px solid #e5e7eb; border-radius: 5px; padding: 5px; color: #000;" />
+                    </div>
+                    <div style="width: calc(33.33% - 14px);">
+                        <label for="max_deposit" style="display: block;">Nạp tiền tối đa</label>
+                        <input type="number"
+                            name="max_deposit"
+                            wire:model="dataFormSaveSetting.max_deposit"
+                            min="0"
+                            step="0.01"
+                            style="width: 100%; height: 30px; border: 1px solid #e5e7eb; border-radius: 5px; padding: 5px; color: #000;" />
+                    </div>
+                    <div style="width: calc(33.33% - 14px);">
+                        <label for="cskh" style="display: block;">Chăm sóc khách hàng</label>
+                        <input type="text"
+                            name="cskh"
+                            wire:model="dataFormSaveSetting.cskh"
+                            style="width: 100%; height: 30px; border: 1px solid #e5e7eb; border-radius: 5px; padding: 5px; color: #000;" />
+                    </div>
+                    <div style="width: calc(33.33% - 14px);">
+                        <label style="display: block;">&nbsp;</label>
+                        <button type="submit" style="width: 100%; height: 30px; background-color: #ccc; color: #000; border: none; border-radius: 5px; cursor: pointer;">Cập nhật</button>
+                    </div>
+                </div>
+            </form>
             <h3>Cài đặt trả thưởng kèo Kenno 1 phút</h3>
             <form wire:submit.prevent="saveSettingKenno1p" id="form_save_setting_kenno_1p">
                 <div>
@@ -390,6 +461,6 @@
                 </div>
             </form>
         </div>
-        
+
     </x-filament::section>
 </x-filament-panels::page>

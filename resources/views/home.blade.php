@@ -150,12 +150,12 @@
                 </a>
             </div>
             <div class="box-game op xsmb">
-                <a href="">
+                <a href="{{ route('xsmb') }}">
                     {{-- <img src="{{ asset('assets/images/mb.png') }}" style="margin-left: -15px;"> --}}
                 </a>
             </div>
             <div class="box-game op xsmt">
-                <a href="">
+                <a href="{{ route('xsmt') }}">
                     {{-- <img src="{{ asset('assets/images/mt.png') }}" style="margin-left: -15px;">
                     <h3>XỔ SỐ TRUYỀN THỐNG</h3>
                     <div class="box-game-text">
@@ -165,7 +165,7 @@
                 </a>
             </div>
             <div class="box-game op xsmn" style="margin-bottom: 100px;">
-                <a href="">
+                <a href="{{ route('xsmn') }}">
                     {{-- <img src="{{ asset('assets/images/mn.png') }}" style="margin-left: -15px;">
                     <h3>XỔ SỐ TRUYỀN THỐNG</h3>
                     <div class="box-game-text">

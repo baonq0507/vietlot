@@ -143,7 +143,7 @@
                         <div class="box-banking">
                             <div class="money_banking">
                                 <h6>{{ $userBank->bank_owner }}</h6>
-                                <h6>{{ $userBank->bank_number }}</h6>
+                                <h6>{{ substr($userBank->bank_number, 0, 4) . str_repeat('*', strlen($userBank->bank_number) - 4) }}</h6>
                             </div>
                             <div class="ctk">{{ $userBank->bank_name }}</div>
                             <div class="icon_credit">
