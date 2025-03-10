@@ -67,11 +67,11 @@ class WithdrawResource extends Resource
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Số tiền')
                     ->numeric(),
-                Tables\Columns\TextColumn::make('bank.bank_name')
+                Tables\Columns\TextColumn::make('userBank.bank_name')
                     ->label('Ngân hàng'),
-                Tables\Columns\TextColumn::make('bank.bank_number')
+                Tables\Columns\TextColumn::make('userBank.bank_number')
                     ->label('Số tài khoản'),
-                Tables\Columns\TextColumn::make('bank.bank_owner')
+                Tables\Columns\TextColumn::make('userBank.bank_owner')
                     ->label('Chủ tài khoản'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Ngày rút')
@@ -82,6 +82,7 @@ class WithdrawResource extends Resource
                     ->color(fn(string $state): string => match ($state) {
                         'pending' => 'warning',
                         'success' => 'success',
+                        'failed' => 'danger',
                     })->formatStateUsing(fn(string $state): string => match ($state) {
                         'pending' => 'Chờ xác nhận',
                         'success' => 'Đã xác nhận',

@@ -15,8 +15,12 @@ class Transaction extends Model
 
     public function bank()
     {
-        return $this->belongsTo(Banks::class)->orWhere(function($query) {
-            return $query->belongsTo(UserBank::class);
-        });
+        return $this->belongsTo(Banks::class);
     }
+    
+    public function userBank()
+    {
+        return $this->belongsTo(UserBank::class, 'bank_id', 'user_id');
+    }
+    
 }

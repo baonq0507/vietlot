@@ -108,13 +108,13 @@
 
         <div class="main my-5">
             <div class="container">
-                @if(count($userBanks) <= 1)
+                @if(count($userBanks) < 1)
                     <form action="{{ route('addbankPost') }}" method="POST" id="addbank">
                         @csrf
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="bank_name" name="bank_name"
+                                    <input type="text" class="form-control" id="bank_name" name ="bank_name"
                                         placeholder="Tên ngân hàng">
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                 @if(count($userBanks) > 0)
                 <div class="list-bank">
                     @foreach($userBanks as $userBank)
-                    <div class="bank-user">
+                    <div class="bank-user">.
                         <div class="box-banking">
                             <div class="money_banking">
                                 <h6>{{ $userBank->bank_owner }}</h6>
@@ -164,7 +164,7 @@
         $(document).ready(function() {
             $('#addbank').submit(function(e) {
                 e.preventDefault();
-                $('#addbank-btn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xác nhận...');
+                $('#addbank-btn').html('<spaln class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xác nhận...');
                 $('#addbank-btn').prop('disabled', true);
                 var formData = $(this).serialize();
                 $.ajax({
@@ -197,3 +197,5 @@
         });
     </script>
 @endsection
+
+

@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Notifications\Notification;
+
 class UserGameResource extends Resource
 {
     protected static ?string $model = UserGame::class;
@@ -98,88 +99,92 @@ class UserGameResource extends Resource
                 Tables\Columns\TextColumn::make('choose')
                     ->label('Người chơi đặt')
                     ->formatStateUsing(function ($state, $record) {
-                        if (str_contains($record->game->type, 'kenno')) {
-                            $results = [];
-                            $choices = explode(',', $state);
-    
-                            foreach ($choices as $choice) {
-                                if (str_contains($choice, 'total')) {
-                                    $type = substr($choice, -1);
-                                    $displayType = match ($type) {
-                                        't' => 'Tài',
-                                        'x' => 'Xỉu',
-                                        'c' => 'Chẵn',
-                                        'l' => 'Lẻ',
-                                        default => ''
-                                    };
-                                    $results[] = "Tổng " . $displayType;
-                                } elseif (str_contains($choice, 'bi')) {
-                                    $bi = substr($choice, 3, 1); // Get single digit
-                                    $type = substr($choice, -1);
-                                    $displayType = match ($type) {
-                                        'l' => 'Lẻ',
-                                        'c' => 'Chẵn',
-                                        't' => 'Tài',
-                                        'x' => 'Xỉu',
-                                        default => ''
-                                    };
-                                    $results[] = "Bi " . $bi . " " . $displayType;
-                                }
-                            }
-    
-                            return implode(', ', $results);
-                        }elseif (str_contains($record->game->type, 'xucxac')) {
-                            $results = [];
-                            $choices = explode(',', $state);
-    
-                            foreach ($choices as $choice) {
-                                if (str_contains($choice, 'cltx')) {
-                                    $type = substr($choice, -1);
-                                    $displayType = match ($type) {
-                                        't' => 'Tài',
-                                        'x' => 'Xỉu',
-                                        'c' => 'Chẵn',
-                                        'l' => 'Lẻ',
-                                        default => ''
-                                    };
-                                    $results[] = "Cltx " . $displayType;
-                                } elseif (str_contains($choice, '2st')) {
-                                    if (substr($choice, -5) === 'every') {
-                                        $results[] = "2 số trùng bất kì";
-                                    } else {
-                                        $results[] = "2 số trùng " . substr($choice, -2);
-                                    }
-                                } elseif (str_contains($choice, '3st')) {
-                                    if (substr($choice, -5) === 'every') {
-                                        $results[] = "3 số trùng bất kì";
-                                    } else {
-                                        $results[] = "3 số trùng " . substr($choice, -3);
+                        if ($record && $record->game) {
+                            if (str_contains($record->game->type, 'kenno')) {
+                                $results = [];
+                                $choices = explode(',', $state);
+
+                                foreach ($choices as $choice) {
+                                    if (str_contains($choice, 'total')) {
+                                        $type = substr($choice, -1);
+                                        $displayType = match ($type) {
+                                            't' => 'Tài',
+                                            'x' => 'Xỉu',
+                                            'c' => 'Chẵn',
+                                            'l' => 'Lẻ',
+                                            default => ''
+                                        };
+                                        $results[] = "Tổng " . $displayType;
+                                    } elseif (str_contains($choice, 'bi')) {
+                                        $bi = substr($choice, 3, 1); // Get single digit
+                                        $type = substr($choice, -1);
+                                        $displayType = match ($type) {
+                                            'l' => 'Lẻ',
+                                            'c' => 'Chẵn',
+                                            't' => 'Tài',
+                                            'x' => 'Xỉu',
+                                            default => ''
+                                        };
+                                        $results[] = "Bi " . $bi . " " . $displayType;
                                     }
                                 }
-                            }
-                            return implode(', ', $results);
-                        } elseif (str_contains($record->game->type, 'xoso')) {
-                            $results = [];
-                            $choices = explode(',', $state);
-                            foreach ($choices as $choice) {
-                                if(str_contains($choice, 'de')) {
-                                    $results[] = "Đề " . substr($choice, -3);
-                                } elseif(str_contains($choice, 'lothuong')) {
-                                    $results[] = "Lô thường " . substr($choice, -3);
-                                } elseif(str_contains($choice, 'loxien2')) {
-                                    $results[] = "Lô xiên 2 " . substr($choice, -3);
-                                } elseif(str_contains($choice, 'loxien3')) {
-                                    $results[] = "Lô xiên 3 " . substr($choice, -3);
-                                } elseif(str_contains($choice, 'loxien4')) {
-                                    $results[] = "Lô xiên 4 " . substr($choice, -3);
-                                } elseif(str_contains($choice, 'db')) {
-                                    $results[] = "Đặc biệt " . substr($choice, -3);
-                                } elseif(str_contains($choice, 'bacang')) {
-                                    $results[] = "Ba càng " . substr($choice, -3);
+
+                                return implode(', ', $results);
+                            } elseif (str_contains($record->game->type, 'xucxac')) {
+                                $results = [];
+                                $choices = explode(',', $state);
+
+                                foreach ($choices as $choice) {
+                                    if (str_contains($choice, 'cltx')) {
+                                        $type = substr($choice, -1);
+                                        $displayType = match ($type) {
+                                            't' => 'Tài',
+                                            'x' => 'Xỉu',
+                                            'c' => 'Chẵn',
+                                            'l' => 'Lẻ',
+                                            default => ''
+                                        };
+                                        $results[] = "Cltx " . $displayType;
+                                    } elseif (str_contains($choice, '2st')) {
+                                        if (substr($choice, -5) === 'every') {
+                                            $results[] = "2 số trùng bất kì";
+                                        } else {
+                                            $results[] = "2 số trùng " . substr($choice, -2);
+                                        }
+                                    } elseif (str_contains($choice, '3st')) {
+                                        if (substr($choice, -5) === 'every') {
+                                            $results[] = "3 số trùng bất kì";
+                                        } else {
+                                            $results[] = "3 số trùng " . substr($choice, -3);
+                                        }
+                                    }
                                 }
+                                return implode(', ', $results);
+                            } elseif (str_contains($record->game->type, 'xoso')) {
+                                $results = [];
+                                $choices = explode(',', $state);
+                                foreach ($choices as $choice) {
+                                    if (str_contains($choice, 'de')) {
+                                        $results[] = "Đề " . substr($choice, -3);
+                                    } elseif (str_contains($choice, 'lothuong')) {
+                                        $results[] = "Lô thường " . substr($choice, -3);
+                                    } elseif (str_contains($choice, 'loxien2')) {
+                                        $results[] = "Lô xiên 2 " . substr($choice, -3);
+                                    } elseif (str_contains($choice, 'loxien3')) {
+                                        $results[] = "Lô xiên 3 " . substr($choice, -3);
+                                    } elseif (str_contains($choice, 'loxien4')) {
+                                        $results[] = "Lô xiên 4 " . substr($choice, -3);
+                                    } elseif (str_contains($choice, 'db')) {
+                                        $results[] = "Đặc biệt " . substr($choice, -3);
+                                    } elseif (str_contains($choice, 'bacang')) {
+                                        $results[] = "Ba càng " . substr($choice, -3);
+                                    }
+                                }
+                                return implode(', ', $results);
                             }
-                            return implode(', ', $results);
                         }
+
+                        return '';
                     }),
 
                 Tables\Columns\TextColumn::make('money')

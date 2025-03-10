@@ -55,7 +55,7 @@ class CreateGame extends Command
                 ]);
             }
         } elseif ($name == 'xsmt') {
-            $url = 'https://mu88.live/api/front/open/lottery/history/list/5/dana';
+            $url = 'https://mu88.live/api/front/open/lottery/history/list/5/phye';
             $response = Http::get($url);
             if ($response->status() != 200) {
                 return response()->json(['error' => 'Lỗi khi lấy dữ liệu'], 422);
@@ -76,7 +76,7 @@ class CreateGame extends Command
                 ]);
             }
         } elseif ($name == 'xsmn') {
-            $url = 'https://mu88.live/api/front/open/lottery/history/list/5/biph';
+            $url = 'https://mu88.live/api/front/open/lottery/history/list/5/cama';
             $response = Http::get($url);
             if ($response->status() != 200) {
                 return response()->json(['error' => 'Lỗi khi lấy dữ liệu'], 422);
@@ -105,6 +105,14 @@ class CreateGame extends Command
                 ->first();
             $now = $lastGame ? Carbon::parse($lastGame->end_time)->addMinutes($step) : now();
 
+            // Lấy ngày hiện tại
+            $today = now()->format('Y-m-d');
+            
+            // Đếm số game đã tạo trong ngày
+            $gamesCount = GameKenno::where('type', $name)
+                ->whereDate('start_time', $today)
+                ->count();
+
             for ($i = 0; $i < 20; $i++) {
                 $endTime = $now->copy()->addMinutes($step);
                 $num1 = rand(1, 6);
@@ -131,6 +139,10 @@ class CreateGame extends Command
 
                     $result = [$db, $giai1, $giai2, $giai3, $giai4, $giai5, $giai6, $giai7];
                 }
+
+                // Tạo mã code theo định dạng 001, 002, ...
+                $code = str_pad($gamesCount + $i + 1, 3, '0', STR_PAD_LEFT);
+
                 GameKenno::create([
                     'type' => $name,
                     'description' => $name,
@@ -138,7 +150,7 @@ class CreateGame extends Command
                     'end_time' => $endTime,
                     'status' => 'not_started',
                     'result' => $result,
-                    'code' => rand(100000, 999999)
+                    'code' => $code
                 ]);
                 $now = $now->addMinutes($step);
             }

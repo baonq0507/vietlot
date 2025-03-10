@@ -449,7 +449,7 @@ class HomeController extends Controller
 
     public function xsmt()
     {
-        $url = 'https://mu88.live/api/front/open/lottery/history/list/5/dana';
+        $url = 'https://mu88.live/api/front/open/lottery/history/list/5/phye';
         $response = Http::get($url);
         if ($response->status() != 200) {
             return response()->json(['error' => 'Lỗi khi lấy dữ liệu'], 422);
@@ -487,7 +487,7 @@ class HomeController extends Controller
 
     public function xsmn()
     {
-        $url = 'https://mu88.live/api/front/open/lottery/history/list/5/biph';
+        $url = 'https://mu88.live/api/front/open/lottery/history/list/5/cama';
         
         $response = Http::get($url);
         if ($response->status() != 200) {
